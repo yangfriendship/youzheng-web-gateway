@@ -14,7 +14,7 @@ spring:
         - id: user-service
           uri: http://localhost:8081
           predicates:
-            - Path=/api/login,/api/users/**
+            - Path=/api/login/**,/api/users/**
         - id: board-service
           uri: http://localhost:8082
           predicates:
@@ -31,7 +31,7 @@ spring:
         cors-configurations:
           '[/**]':
             allowedOrigins:
-              - http://localhost:8888
+              - http://localhost:3000
             allowCredentials: true
             allowedHeaders: "*"
             allowedMethods:
@@ -42,3 +42,20 @@ spring:
               - PATCH
               - DELETE
         add-to-simple-url-handler-mapping: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - gateway
+          - info
+    gateway:
+      enabled: true
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    root: info
